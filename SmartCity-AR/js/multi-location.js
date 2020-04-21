@@ -14,7 +14,7 @@ function staticLoadPlaces() {
                lat: 46.90127795037299,
                lng: 18.016618859950604,
            },
-           gtlf: './assets/magnemite/scene.gltf'
+           gtlf: '../assets/magnemite/scene.gltf'
        },
        {
            name: 'Articuno, Lv. 80, HP 100/100',
@@ -22,7 +22,7 @@ function staticLoadPlaces() {
                lat: 46.90128253197129,
                lng: 18.01665439922005,
            },
-           gtlf: './assets/articuno/scene.gltf'
+           gtlf: '../assets/articuno/scene.gltf'
        },
        {
            name: 'Dragonite, Lv. 99, HP 150/150',
@@ -30,7 +30,7 @@ function staticLoadPlaces() {
                lat: 46.90130635627607,
                lng: 18.01661617774159,
            },
-           gtlf: './assets/dragonite/scene.gltf'
+           gtlf: '../assets/dragonite/scene.gltf'
        },
    ];
 }
