@@ -8,29 +8,45 @@
   
   <!-- this part defines the playback / control function and events -->
   <script>
-    var markerFound = 0;
+    var hiroFound = 0;
+    var kanjiFound = 0;
     AFRAME.registerComponent('button', {
         init: function ()
         {
           var elem = document.documentElement;
-          var marker = document.querySelector("#marker");
+          var markerHiro = document.querySelector("#marker_hiro");
+          var markerKanji = document.querySelector("#marker_kanji");
           var fullbutton = document.querySelector("#fullscreen");
           var Video_0 = document.querySelector("#Video_Asset_0");
-          var button = document.querySelector("#mutebutton");
+          var Video_1 = document.querySelector("#Video_Asset_1");
+          var button = document.querySelector("#mutebutton1");
           button.hidden = true;
           Video_0.pause();
+          Video_1.pause();
 
-          marker.addEventListener("markerFound", function (evt) {
-            markerFound = 1;
+
+          markerHiro.addEventListener("markerFound", function (evt) {
+            hiroFound = 1;
             button.hidden = false;
             // Video_0.play();  // if you want the video 
             // to start immediently on marker detection, uncomment this
           });
 
-          marker.addEventListener("markerLost", function (evt) {
-            markerFound = 0;
+          markerKanji.addEventListener("markerFound", function (evt) {
+            kanjiFound = 1;
+            Video_1.play();  // if you want the video 
+            // to start immediently on marker detection, uncomment this
+          });
+
+          markerHiro.addEventListener("markerLost", function (evt) {
+            hiroFound = 0;
             Video_0.pause();
             button.hidden = true;
+          });
+
+          markerKanji.addEventListener("markerLost", function (evt) {
+            hiroFound = 0;
+            Video_1.pause();
           });
 
           // button for video play/pause
@@ -91,7 +107,7 @@
 </head>
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
   <div style='position: absolute; bottom: 10px; right: 30px; width:100%; text-align: center; z-index: 1;'>
-    <button id="mutebutton" style='position: absolute; bottom: 10px' hidden>Play</button>
+    <button id="mutebutton1" style='position: absolute; bottom: 10px' hidden>Play</button>
   </div>
   <div style='position: absolute; bottom: 5px; left: 30px; width:100%; text-align: right; z-index: 1;'>
     <input type="image" id="fullscreen" src="assets/fullscreen_small.png" style='position: absolute; bottom: 0px; right: 35px;'></input>
@@ -100,9 +116,14 @@
     <a-entity id="mouseCursor" cursor="rayOrigin: mouse" raycaster="objects: .intersectable; useWorldCoordinates: true;"></a-entity>
     <a-assets>
       <video id="Video_Asset_0" autoplay="false" loop crossorigin="anonymous" src="assets/meow.mp4" webkit-playsinline playsinline controls muted></video>
+      <video id="Video_Asset_1" autoplay="false" loop crossorigin="anonymous" src="assets/meow2.mp4" webkit-playsinline playsinline controls muted></video>
     </a-assets>
-    <a-marker id="marker" preset="hiro" emitevents="true" button>
+    <a-marker id="marker_hiro" preset="hiro" emitevents="true" button>
       <a-video src="#Video_Asset_0" id="Video_0" class="intersectable" width="1" height="1" position="0 0 0" rotation="0 0 0" color="#FFFFFF" transparent=False></a-video>
+    </a-marker>
+      <!-- handle kanji marker -->
+      <a-marker id="marker_kanji" preset='kanji' emitevents="true">
+        <a-video src="#Video_Asset_1" id="Video_1" class="intersectable" width="1" height="1" position="0 0 0" rotation="0 0 0" color="#FFFFFF" transparent=False></a-video>
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
