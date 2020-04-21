@@ -34,7 +34,8 @@
 
           markerKanji.addEventListener("markerFound", function (evt) {
             kanjiFound = 1;
-            Video_1.play();  // if you want the video 
+            Video_1.play();  
+            Video_1.muted=false;// if you want the video 
             // to start immediently on marker detection, uncomment this
           });
 
@@ -47,6 +48,7 @@
           markerKanji.addEventListener("markerLost", function (evt) {
             hiroFound = 0;
             Video_1.pause();
+            Video_1.muted = true;
           });
 
           // button for video play/pause
